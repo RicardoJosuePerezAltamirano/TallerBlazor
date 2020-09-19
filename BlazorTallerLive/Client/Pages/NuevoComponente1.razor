@@ -1,10 +1,25 @@
-﻿
+﻿@inject HttpClient Client
 <p><strong>Hola desde nuevo componente 1</strong></p>
-<button class="btn btn-success" @onclick="Saludar">Saluda</button>
 <button class="btn btn-primary"
         @onclick="@(()=>Console.WriteLine("Hola directo de boton"))">
     Saludar desde boton
 </button>
-@code {
+<button class="btn btn-success" @onclick="GetPost">Recibe post</button>
+<AddPost></AddPost>
+@if (PostsList.Count > 0)
+{
+    @foreach (var post in PostsList)
+    {
+        <div class="card">
+            <div class="card-title">
+                @post.Title
+            </div>
+            <div class="card-body">
+                @post.Body
+            </div>
+
+        </div>
+
+    }
 
 }

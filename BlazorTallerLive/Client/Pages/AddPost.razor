@@ -1,0 +1,21 @@
+﻿<h3>AddPost</h3>
+
+<div class="form-group">
+    <div>
+        <label class="form-control">Id</label>
+        <input type="text" @bind="Id" />
+    </div>
+    <div>
+        <label class="form-control">UserId</label>
+        <input type="text" @bind="userId" />
+    </div>
+    <div>
+        <label class="form-control">Title</label>
+        <input type="text" @bind="Title" />
+    </div>
+    <div>
+        <label class="form-control">Body</label>
+        <input type="text" @bind="Body" />
+    </div>
+    <button class="btn btn-primary" @onclick="SaveChanges">Enviar</button>
+</div>

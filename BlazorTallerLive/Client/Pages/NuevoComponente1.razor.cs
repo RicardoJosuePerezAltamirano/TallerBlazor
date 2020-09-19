@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
 
 namespace BlazorTallerLive.Client.Pages
 {
@@ -21,9 +22,14 @@ namespace BlazorTallerLive.Client.Pages
             PostsList = JsonConvert.DeserializeObject<List<Post>>(data);
             Console.WriteLine(PostsList.Count);
         }
-        private void LoadPost(Post post)
+        private async Task LoadPost(Post post)
         {
             Console.WriteLine($"desde NuevoComponente {post.Id}");
+            var response = await Client.PostAsJsonAsync("https://jsonplaceholder.typicode.com/posts", post);
+            var data = await response.Content.ReadAsStringAsync();
+            var responsefull = JsonConvert.DeserializeObject<Post>(data);
+            PostsList.Add(responsefull);
+
         }
 
     }

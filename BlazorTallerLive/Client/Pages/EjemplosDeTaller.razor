@@ -1,0 +1,17 @@
+﻿@page "/ejemplos/{NombrePersona}"
+@page "/ejemplos"
+<h3>Ejemplo de rutas blazor</h3>
+@if (NombrePersona != null)
+{
+    <p>@NombrePersona</p>
+}
+<MiComponente Nombre="@NombrePersona">
+    <ContenidoUno>
+        <NuevoComponente1></NuevoComponente1>
+        <h2>mas contenido dentro de contenido1</h2>
+    </ContenidoUno>
+    <ContenidoDos>
+        <h1>datos del parametro renderFragmen2</h1>
+    </ContenidoDos>
+</MiComponente>
+

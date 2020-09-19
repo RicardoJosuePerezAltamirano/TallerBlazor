@@ -6,6 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace BlazorTallerLive.Server
 {
@@ -25,6 +29,26 @@ namespace BlazorTallerLive.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,// emisor
+                    ValidateAudience = true,//Audince is meant to refer to the Resource Servers that should accept the token. 
+                    ValidAudience = Configuration["AuthSettings:Audince"],// valida de donde viene el token y si es corrento lo usa 
+                    ValidIssuer = Configuration["AuthSettings:Issuer"],
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:key"])),
+
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +71,9 @@ namespace BlazorTallerLive.Server
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

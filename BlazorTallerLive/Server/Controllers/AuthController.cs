@@ -53,7 +53,7 @@ namespace BlazorTallerLive.Server.Controllers
                 };
                 IdentityModelEventSource.ShowPII = true;
                 var keybuffer = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:key"]));
-                DateTime expireTime = DateTime.Now.AddSeconds(30);
+                DateTime expireTime = DateTime.Now.AddHours(1);
                 var token = new JwtSecurityToken(issuer: Configuration["AuthSettings:Issuer"], audience: Configuration["AuthSettings:Audince"], claims, expires: expireTime, signingCredentials: new SigningCredentials(keybuffer, SecurityAlgorithms.HmacSha256));
 
                 tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);

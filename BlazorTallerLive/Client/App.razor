@@ -1,10 +1,18 @@
-<Router AppAssembly="@typeof(Program).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-    </Found>
-    <NotFound>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p>no existe la ruta , verifique los datos</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+<Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(Program).Assembly">
+        <Found Context="routeData">
+            @*<RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />*@
+            <Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <BlazorTallerLive.Client.Pages.Login></BlazorTallerLive.Client.Pages.Login>
+                </NotAuthorized>
+
+            </Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView>
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>no existe la ruta , verifique los datos</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>

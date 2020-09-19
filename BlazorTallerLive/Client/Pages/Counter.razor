@@ -1,11 +1,13 @@
 ﻿@page "/counter"
 @using BlazorTallerLive.Shared
+@inject NavigationManager Nav
 
 <h1>Counter</h1>
 
 <p>Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="@(()=>Nav.NavigateTo("/ejemplos"))">Click me</button>
 <AddPost OnAddedPost="PostAdded"></AddPost>
 
 @code {

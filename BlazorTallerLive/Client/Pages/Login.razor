@@ -1,0 +1,37 @@
+﻿@page "/login"
+@inject HttpClient Client
+@inject CustomAuthenticationStateProvider Auth
+<h3>Login</h3>
+<div>
+    <label>Usuario</label>
+    <input type="text" @bind="user" />
+</div>
+<div>
+    <label>Contraseña</label>
+    <input type="text" @bind="pass" />
+</div>
+<div>
+    <button @onclick="(()=>loginuser())">Enviar</button>
+</div>
+@code {
+    string user = "";
+    string pass = "";
+
+    async Task loginuser()
+    {
+
+        var response = await Client.GetAsync($"api/auth/login?user={user}&pass={pass}");
+        if (response.IsSuccessStatusCode)
+        {
+
+            var token = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(token);
+            await Auth.SetTokenAsync(token, DateTime.Now.AddHours(1).ToString());
+            var data = await Auth.GetAuthenticationStateAsync();
+            Console.WriteLine(data.User.Identity);
+            Console.WriteLine(data.User.Claims.ToList().Count);
+            StateHasChanged();
+        }
+
+    }
+}

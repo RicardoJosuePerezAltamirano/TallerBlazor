@@ -1,6 +1,8 @@
 @page "/fetchdata"
 @using BlazorTallerLive.Shared
 @inject HttpClient Http
+@inject CustomAuthenticationStateProvider Auth
+@attribute [Authorize]
 
 <h1>Weather forecast</h1>
 
@@ -40,7 +42,13 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        //forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        var token = await Auth.GetTokenAsync();
+        if (!string.IsNullOrEmpty(token))
+        {
+            Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        }
     }
 
 }

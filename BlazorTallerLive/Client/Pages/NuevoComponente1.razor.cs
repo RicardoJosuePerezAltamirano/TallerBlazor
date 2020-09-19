@@ -21,6 +21,10 @@ namespace BlazorTallerLive.Client.Pages
             PostsList = JsonConvert.DeserializeObject<List<Post>>(data);
             Console.WriteLine(PostsList.Count);
         }
+        private void LoadPost(Post post)
+        {
+            Console.WriteLine($"desde NuevoComponente {post.Id}");
+        }
 
     }
 }

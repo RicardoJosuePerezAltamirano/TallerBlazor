@@ -5,7 +5,7 @@
     Saludar desde boton
 </button>
 <button class="btn btn-success" @onclick="GetPost">Recibe post</button>
-<AddPost></AddPost>
+<AddPost OnAddedPost="LoadPost"></AddPost>
 @if (PostsList.Count > 0)
 {
     @foreach (var post in PostsList)

@@ -1,4 +1,5 @@
 ﻿using BlazorTallerLive.Shared;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,10 @@ namespace BlazorTallerLive.Client.Pages
     {
         int Id,userId;
         string Title, Body;
-        
-        void SaveChanges()
+        [Parameter]
+        public EventCallback<Post> OnAddedPost { get; set; }
+
+        async Task SaveChanges()
         {
             Post newPost = new Post
             {
@@ -20,8 +23,9 @@ namespace BlazorTallerLive.Client.Pages
                 Title = Title,
                 UserId = userId
             };
-            Console.WriteLine($"nuevo post= {newPost.Id} {newPost.Title}");
+            await OnAddedPost.InvokeAsync(newPost);
         }
+        
 
 
     }

@@ -1,0 +1,26 @@
+﻿@inject HttpClient Client
+<h3>MiComponente</h3>
+<div>
+    <p>parametro primitivo</p>
+    <p>@Nombre</p>
+</div>
+
+<div>
+    <p>Parametros arbitrarios</p>
+    <input @attributes="InputAttributes" />
+</div>
+
+<div>
+    <p>componente como parametro</p>
+    @ContenidoUno
+
+    <div>
+        @ContenidoDos
+    </div>
+</div>
+
+
+<div>
+    <p>Consumo de api para tomar la url</p>
+    <img src="@PhotoLocal.Url" />
+</div>

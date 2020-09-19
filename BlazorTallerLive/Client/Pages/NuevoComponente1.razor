@@ -1,10 +1,11 @@
 ﻿@inject HttpClient Client
-<p><strong>Hola desde nuevo componente 1</strong></p>
+<p><strong>ejemplo componente como parametro</strong></p>
 <button class="btn btn-primary"
         @onclick="@(()=>Console.WriteLine("Hola directo de boton"))">
     Saludar desde boton
 </button>
 <button class="btn btn-success" @onclick="GetPost">Recibe post</button>
+<p>ejemplo formulario, bind y Event callback</p>
 <AddPost OnAddedPost="LoadPost"></AddPost>
 @if (PostsList.Count > 0)
 {

@@ -28,7 +28,7 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: $(proyect)
-    arguments: '--configuration $(BuildConfiguration) -- output $(Build.ArtifactStaginDirectory) --self-contained --runtime win-x86'
+    arguments: '--configuration $(BuildConfiguration) -- output $(Build.ArtifactStaginDirectory)'
     zipAfterPublish: false
     modifyOutputPath: false
 - task: PublishBuildArtifacts@1
